@@ -1,43 +1,19 @@
-var list = document.getElementById('list');
-var add = document.getElementById('addElem');
-
-
-add.addEventListener('click', function(e) {
-  var element = document.createElement('li');
-  element.innerHTML = 'item';
-  var itemsByTagName = document.getElementsByTagName('li'); 
-		  
-	  
-  list.appendChild(element);
-  
-  /*console.log(itemsByTagName.length) */
-  
-  /* var dlugosc = document.getElementsByTagName.length;
-	console.log(dlugosc)  */
-	
-	var dlugosc = itemsByTagName.length;
-	console.log(dlugosc)
-	
-}); 
-
-
-
-
-
-
-
-
-
-
-/* function checkOnclickEvent(param) {
-  console.log(param);
-}
-var inputElem = document.getElementById('js-inputValue'),
-    imageElem = document.getElementById('js-image');
-
-imageElem.addEventListener('click', function(e) {
-  checkOnclickEvent('image was clicked')
+var span = $('span');
+    span.each(function(index, element) {
 });
-inputElem.addEventListener('keypress', function(e) {
-  e.target.value += ' test ';
-}); */
+
+span.each(function(index, element) {
+	if(index % 2 == 0) {
+		$(element).css('color', 'red');
+	};
+});
+
+var paragraphs = $('p');
+paragraphs.each(function(index, element) {
+    var button = '<button class="btn" data-tmp="' + index + '">Click me</button>';
+    $(element).append(button);
+});
+
+$('button').click(function(){
+	alert($(this).attr('data-tmp'));
+});
