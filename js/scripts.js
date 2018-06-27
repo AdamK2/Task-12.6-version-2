@@ -1,6 +1,6 @@
-// 1.Generowanie ID 
- 
- randomString() {
+// 1. Generowanie ID
+
+function randomString() {
     var chars = '0123456789abcdefghiklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXTZ';
     var str = '';
     for (var i = 0; i < 10; i++) {
@@ -9,7 +9,7 @@
     return str;
 }
 
-// 2. Klasa "Column"
+// 2. Klasa Column
 
 function Column(name) {
     var self = this; // useful for nested functions
@@ -19,35 +19,38 @@ function Column(name) {
     this.$element = createColumn();
 
     function createColumn() {
-		// CREATING COMPONENTS OF COLUMNS
-		var $column = $('<div>').addClass('column');
-		var $columnTitle = $('<h2>').addClass('column-title').text(self.name);
-		var $columnCardList = $('<ul>').addClass('column-card-list');
-		var $columnDelete = $('<button>').addClass('btn-delete').text('x');
-		var $columnAddCard = $('<button>').addClass('add-card').text('Add a card');
+    	
+		function createColumn() {
+    // CREATING COMPONENTS OF COLUMNS
+    var $column = $('<div>').addClass('column');
+    var $columnTitle = $('<h2>').addClass('column-title').text(self.name);
+    var $columnCardList = $('<ul>').addClass('column-card-list');
+    var $columnDelete = $('<button>').addClass('btn-delete').text('x');
+    var $columnAddCard = $('<button>').addClass('add-card').text('Add a card');
 
-		// ADDING EVENTS
-		$columnDelete.click(function() {
-			self.removeColumn();
-		});
-		$columnAddCard.click(function(event) {
-			self.addCard(new Card(prompt("Enter the name of the card")));
-		});
+    // ADDING EVENTS
+    $columnDelete.click(function() {
+        self.removeColumn();
+    });
+    $columnAddCard.click(function(event) {
+        self.addCard(new Card(prompt("Enter the name of the card")));
+    });
 
-		// CONSTRUCTION COLUMN ELEMENT
-		$column.append($columnTitle)
-			.append($columnDelete)
-			.append($columnAddCard)
-			.append($columnCardList);
+    // CONSTRUCTION COLUMN ELEMENT
+    $column.append($columnTitle)
+        .append($columnDelete)
+        .append($columnAddCard)
+        .append($columnCardList);
 
-		// RETURN OF CREATED COLUMN
-		return $column;
-		}
+    // RETURN OF CREATED COLUMN
+    return $column;
+		}		
+    }
   }
+  
+// 3. Metody dla klasy Column
 
-// 3. Metody dla klasy "Column" 
- 
-  Column.prototype = {
+Column.prototype = {
     addCard: function(card) {
       this.$element.children('ul').append(card.$element);
     },
@@ -56,7 +59,7 @@ function Column(name) {
     }
 };
 
-// 4. Klasa "Card"
+// 4. Klasa Card
 
 function Card(description) {
 	var self = this;
@@ -66,30 +69,33 @@ function Card(description) {
     this.$element = createCard();
 
     function createCard() {
-		// CREATING THE BLOCKS
-		var $card = $('<li>').addClass('card');
-		var $cardDescription = $('<p>').addClass('card-description').text(self.description);
-		var $cardDelete = $('<button>').addClass('btn-delete').text('x');
+    	
+		function createCard() {
+    // CREATING THE BLOCKS
+    var $card = $('<li>').addClass('card');
+    var $cardDescription = $('<p>').addClass('card-description').text(self.description);
+    var $cardDelete = $('<button>').addClass('btn-delete').text('x');
 
-		// BINDING TO CLICK EVENT
-		$cardDelete.click(function(){
+    // BINDING TO CLICK EVENT
+    $cardDelete.click(function(){
            		self.removeCard();
-		});
+    });
 
-		// COMBINING BLOCKS AND RETURNING THE CARD
-		$card.append($cardDelete)
+    // COMBINING BLOCKS AND RETURNING THE CARD
+    $card.append($cardDelete)
     		.append($cardDescription);
 
     	return $card;
-	}	
+		}		
+    }
 }
 
-// 5. Metoda dla klasy "Card"
+// 5. Metoda dla klasy Card
 
 Card.prototype = {
 	removeCard: function() {
 		this.$element.remove();
-	}
+}
 }
 
 // 6. Obiekt tablicy
@@ -111,33 +117,33 @@ function initSortable() {
      placeholder: 'card-placeholder'
    }).disableSelection();
  }
-
-// 8. Przycisk służący do dodawania kolejnych kolumn
-
-$('.create-column')
+ 
+// 8. Wrzucanie nowej kolumny do tablicy
+ 
+ $('.create-column')
   .click(function(){
 	var name = prompt('Enter a column name');
 	var column = new Column(name);
     	board.addColumn(column);
- });
-
+  });
+ 
 // 9. Tworzenie domyślnych kolumn i kart
  
-	// CREATING COLUMNS
+ // CREATING COLUMNS
 var todoColumn = new Column('To do');
 var doingColumn = new Column('Doing');
 var doneColumn = new Column('Done');
 
-	// ADDING COLUMNS TO THE BOARD
+// ADDING COLUMNS TO THE BOARD
 board.addColumn(todoColumn);
 board.addColumn(doingColumn);
 board.addColumn(doneColumn);
 
-	// CREATING CARDS
+// CREATING CARDS
 var card1 = new Card('New task');
 var card2 = new Card('Create kanban boards');
 
-	// ADDING CARDS TO COLUMNS
+// ADDING CARDS TO COLUMNS
 todoColumn.addCard(card1);
 doingColumn.addCard(card2);
 
